@@ -1,0 +1,40 @@
+name: Automated Preprocessing
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pandas numpy scikit-learn
+
+      - name: Run preprocessing
+        working-directory: preprocessing
+        run: python automate_Ridwan.py
+
+      - name: Upload preprocessed dataset
+        uses: actions/upload-artifact@v3
+        with:
+          name: titanic_preprocessing
+          path: preprocessing/titanic_preprocessing/
+
+      - name: Commit preprocessed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add preprocessing/titanic_preprocessing/ titanic_raw/ || true
+          git diff --staged --quiet || git commit -m "chore: update preprocessed dataset [skip ci]"
+          git push || true
