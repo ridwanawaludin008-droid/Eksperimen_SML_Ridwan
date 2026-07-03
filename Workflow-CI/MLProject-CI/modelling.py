@@ -13,8 +13,6 @@ y_train = train["target"]
 X_test = test.drop("target", axis=1)
 y_test = test["target"]
 
-mlflow.set_experiment("Workflow-CI")
-
 with mlflow.start_run():
     model = RandomForestClassifier(random_state=42)
     model.fit(X_train, y_train)
