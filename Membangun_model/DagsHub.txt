@@ -1,0 +1,15 @@
+# Tautan DagsHub
+# Ganti dengan URL repository DagsHub kamu setelah membuat repo di https://dagshub.com
+
+DAGSHUB_REPO_URL=https://dagshub.com/<username>/<repo-name>
+MLFLOW_TRACKING_URI=https://dagshub.com/<username>/<repo-name>.mlflow
+
+# Cara setup di modelling_tuning.py:
+# 1. Uncomment baris mlflow.set_tracking_uri dan mlflow.set_experiment
+# 2. Set environment variable sebelum run:
+#    set MLFLOW_TRACKING_USERNAME=<username>
+#    set MLFLOW_TRACKING_PASSWORD=<dagshub-token>
+# 3. Atau gunakan dagshub library:
+#    pip install dagshub
+#    import dagshub
+#    dagshub.init(repo_owner='<username>', repo_name='<repo-name>', mlflow=True)
